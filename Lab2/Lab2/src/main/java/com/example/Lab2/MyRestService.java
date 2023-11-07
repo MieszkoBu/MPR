@@ -4,6 +4,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class MyRestService{
     public List<Car> cars = new ArrayList<>();
@@ -17,7 +19,7 @@ public class MyRestService{
         this.carRepository.save(new Car("a","v",2009));
         this.carRepository.save(new Car("b","v",2006));
         this.carRepository.save(new Car("c","s",2004));
-        this.carRepository.save(new Car("dupa","d",2001));
+        this.carRepository.save(new Car("dua","d",2001));
         this.cars.add(c1);
         this.cars.add(c2);
         this.cars.add(c3);
@@ -40,7 +42,19 @@ public class MyRestService{
             if(id == c.id){
                 cars.remove(c);
             }
+            else{
+                System.out.println("Nie znaleziono takiego samochodu");
+            }
         }
     }
+    public Optional<Car> findByID(long id){
+        Optional<Car> CarRepo = Optional.ofNullable(this.carRepository.findById(id));
+        if(CarRepo.isPresent()){
+            return CarRepo;
+        }else{
+            throw new CarExceptionHandler.CarNotFoundException();
+        }
+    }
+
 
 }

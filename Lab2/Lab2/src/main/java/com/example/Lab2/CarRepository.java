@@ -5,5 +5,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CarRepository extends CrudRepository<Car, Long> {
-    public Car findByMarka(String marka);
+    Car findByMarka(String marka);
+    Car findById(long id);
 }

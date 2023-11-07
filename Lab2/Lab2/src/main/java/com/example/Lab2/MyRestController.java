@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class MyRestController {
@@ -21,23 +22,25 @@ public class MyRestController {
     public List<Car> cars(){
         return myRestService.wypisz();
     }
-    @GetMapping("/Car/{marka}")
-    public Car getCarByMarka(
-                @PathVariable("marka") String marka
-        ){
+    @GetMapping("/findbyMarka/{marka}")
+    public Car getCarByMarka(@PathVariable("marka") String marka){
             return this.myRestService.getCarRepository(marka);
         }
-@PostMapping("/Car/add")
-public void addCar(@RequestBody Car car){
+        @GetMapping("/findbyId/{id}")
+        public Optional<Car> getCarByID(@PathVariable("id") long id){
+            return this.myRestService.findByID(id);
+        }
+    @PostMapping("/Car/add")
+    public void addCar(@RequestBody Car car){
         this.myRestService.addCarRepository(car);
-}
+    }
     @PutMapping("/car")
     public void putCar(@RequestBody Car car){
            myRestService.c(car);
            System.out.println("Dodano samochód");
     }
-    @DeleteMapping("/ucar")
-    public void deletecar(@PathVariable int id){
+    @DeleteMapping("/ucar/{id}")
+    public void deletecar(@PathVariable("id") int id){
         myRestService.usun(id);
     }
 
