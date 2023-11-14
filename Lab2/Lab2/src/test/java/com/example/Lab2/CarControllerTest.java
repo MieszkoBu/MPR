@@ -7,6 +7,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -14,6 +15,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -44,15 +47,14 @@ public class CarControllerTest {
 
     }
     @Test
-    public void getByIdReturns404WhenCarIsNotPresent() throws Exception{
-        Car car = new Car("a","v",2009);
-        Mockito.when(service.findByID(1L)).thenReturn(Optional.of(car));
+    public void check400IsReturnedWhenCarIsAlreadyThere() throws Exception{
+        Mockito.when(service.addCarRepository(any())).thenThwrow(new CarExceptionHandler.CarAlreadyExistExeption());
 
-        mockMvc.perform((MockMvcRequestBuilders.get("findbyId/1")))
-                .andExpect(jsonPath("$.makra").value("a"))
-                .andExpect(jsonPath("$.model").value("v"))
-                .andExpect(jsonPath("$.rok_produkcji").value(2009))
-                .andExpect(status().isOk());
+        mockMvc.perform(post("/Car/add")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"marka\": \"BMW\", \"model\": \"A\", \"rok_produkcji\": 2009}")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
 
     }
 }
