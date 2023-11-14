@@ -38,13 +38,12 @@ public class MyRestService{
         cars.add(car);
     }
     void usun(int id){
-        for (Car c: cars) {
-            if(id == c.id){
-                cars.remove(c);
-            }
-            else{
-                System.out.println("Nie znaleziono takiego samochodu");
-            }
+        Optional<Car> CarRepo = Optional.ofNullable(this.carRepository.findById(id));
+        if(CarRepo.isPresent()){
+            cars.remove(id);
+        }else{
+            System.out.println("Nie ma takiego samochodu");
+            throw new CarExceptionHandler.CarNotFoundException();
         }
     }
     public Optional<Car> findByID(long id){

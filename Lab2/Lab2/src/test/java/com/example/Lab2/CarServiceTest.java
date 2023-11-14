@@ -8,7 +8,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class CarServiceTest {
     @Mock
@@ -47,4 +50,25 @@ public class CarServiceTest {
         Car carFromSaveCall = captor.getValue();
         assertEquals(car,carFromSaveCall);
     }
+    @Test
+    public void CarAddThrowsExceptionWhenCarIsNotPresent(){
+        Car car = new Car("a","v",2009);
+        car.setId(1);
+
+        Mockito.when(repository.findById(1)).thenReturn(car);
+        assertThrows(CarExceptionHandler.CarNotFoundException.class, () -> {
+            CarService.addCarRepository(car);
+        });
+    }
+
+//    @Test
+//    public void CarAddThrowsExceptionWhenCarIsPresent(){
+//        Car car = new Car("BMW","A",2001);
+//        car.setId(2L);
+//
+//        Mockito.when(repository.findById(2L)).thenReturn(car);
+//        assertThrows(CarExceptionHandler.CarAlreadyExistExeption.class, () -> {
+//            CarService.addCarRepository(car);
+//        });
+//    }
 }

@@ -13,14 +13,16 @@ public class CarExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.notFound().build();
     }
     @ExceptionHandler({CarAlreadyExistExeption.class})
-
+    protected ResponseEntity<Object> handleExist(RuntimeException ex, WebRequest request){
+        return ResponseEntity.notFound().build();
+    }
     public static class CarNotFoundException extends RuntimeException{
-        public CarNotFoundException(){
+         public CarNotFoundException(){
             super("Samochód nie został znaleziony");
         }
     }
     public static class CarAlreadyExistExeption extends RuntimeException{
-        public CarAlreadyExist(){
+        public CarAlreadyExistExeption(){
             super("Samochód istnieje");
         }
     }
