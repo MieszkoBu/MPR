@@ -14,8 +14,7 @@ public class CarExceptionHandler extends ResponseEntityExceptionHandler {
     }
     @ExceptionHandler({CarAlreadyExistExeption.class})
     protected ResponseEntity<Object> handleExist(RuntimeException ex, WebRequest request){
-        return ResponseEntity.notFound().build();
-    }
+        return ResponseEntity.badRequest().body(ex.getMessage());    }
     public static class CarNotFoundException extends RuntimeException{
          public CarNotFoundException(){
             super("Samochód nie został znaleziony");

@@ -51,24 +51,26 @@ public class CarServiceTest {
         assertEquals(car,carFromSaveCall);
     }
     @Test
-    public void CarAddThrowsExceptionWhenCarIsNotPresent(){
-        Car car = new Car("a","v",2009);
-        car.setId(1);
+    public void CarAddThrowsExceptionWhenCarIsNotPresent() {
+        Car car = new Car("a", "v", 2009);
+        car.setId(6);
 
-        Mockito.when(repository.findById(1)).thenReturn(car);
+        // Poprawne użycie Optional.empty()
+        Mockito.when(repository.findById(6)).thenReturn(null);
+
         assertThrows(CarExceptionHandler.CarNotFoundException.class, () -> {
             CarService.addCarRepository(car);
         });
     }
 
-//    @Test
-//    public void CarAddThrowsExceptionWhenCarIsPresent(){
-//        Car car = new Car("BMW","A",2001);
-//        car.setId(2L);
-//
-//        Mockito.when(repository.findById(2L)).thenReturn(car);
-//        assertThrows(CarExceptionHandler.CarAlreadyExistExeption.class, () -> {
-//            CarService.addCarRepository(car);
-//        });
-//    }
+    @Test
+    public void CarAddThrowsExceptionWhenCarIsPresent() {
+        Car car = new Car("BMW", "A", 2001);
+        car.setId(2);
+
+        Mockito.when(repository.findById(2)).thenReturn(car);
+        assertThrows(CarExceptionHandler.CarAlreadyExistExeption.class, () -> {
+            CarService.addCarRepository(car);
+        });
+    }
 }
