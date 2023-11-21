@@ -32,7 +32,7 @@ public class CarServiceTest {
         String marka = "Toyota";
         Car car = new Car(marka,"g",2003);
         Mockito.when(repository.findByMarka(marka)).thenReturn(car);
-        Car result = CarService.getCarRepository(marka);
+        Optional<Car> result = CarService.getCarRepository(marka);
         assertEquals(car,result);
     }
     @Test
@@ -54,8 +54,6 @@ public class CarServiceTest {
     public void CarAddThrowsExceptionWhenCarIsNotPresent() {
         Car car = new Car("a", "v", 2009);
         car.setId(6);
-
-        // Poprawne użycie Optional.empty()
         Mockito.when(repository.findById(6)).thenReturn(null);
 
         assertThrows(CarExceptionHandler.CarNotFoundException.class, () -> {
@@ -67,7 +65,6 @@ public class CarServiceTest {
     public void CarAddThrowsExceptionWhenCarIsPresent() {
         Car car = new Car("BMW", "A", 2001);
         car.setId(2);
-
         Mockito.when(repository.findById(2)).thenReturn(car);
         assertThrows(CarExceptionHandler.CarAlreadyExistExeption.class, () -> {
             CarService.addCarRepository(car);

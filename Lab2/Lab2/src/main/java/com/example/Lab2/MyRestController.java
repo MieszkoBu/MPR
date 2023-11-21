@@ -23,7 +23,7 @@ public class MyRestController {
         return myRestService.wypisz();
     }
     @GetMapping("/findbyMarka/{marka}")
-    public Car getCarByMarka(@PathVariable("marka") String marka){
+    public Optional<Car> getCarByMarka(@PathVariable("marka") String marka){
             return this.myRestService.getCarRepository(marka);
         }
         @GetMapping("/findbyId/{id}")
@@ -43,6 +43,9 @@ public class MyRestController {
     public void deletecar(@PathVariable("id") int id){
         myRestService.usun(id);
     }
-
+    @GetMapping("/car/{rok_produkcji}")
+    public List<Car> filterByModel(@PathVariable("rok_produkcji") int rok_produkcji){
+            return myRestService.filterByRok_produkcji(rok_produkcji);
+    }
 
 }
