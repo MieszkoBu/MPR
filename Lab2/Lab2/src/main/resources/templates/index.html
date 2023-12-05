@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+
+</head>
+<body>
+    <p>Car</p>
+<table border="1">
+    <thead>
+    <th>ID</th>
+    <th>Marka</th>
+    <th>Model</th>
+    <th>Rok produkcji</th>
+    </thead>
+    <tbody>
+        <tr th:each="car:${Car}">
+            <td th:text="${car.getId()}"></td>
+            <td th:text="${car.getMarka()}"></td>
+            <td th:text="${car.getModel()}"></td>
+            <td th:text="${car.getRok_produkcji()}"></td>
+        </tr>
+        <td>
+            <a href="addCar">Add</a>
+        </td>
+    </tbody>
+</table>
+</body>
+</html>

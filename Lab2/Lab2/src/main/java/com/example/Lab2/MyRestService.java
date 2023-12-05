@@ -42,7 +42,9 @@ public class MyRestService{
         this.carRepository.save(car);
     }
     public List<Car> wypisz(){
-        return cars;
+        List<Car> car = new ArrayList<>();
+        car.addAll(carRepository.findAll());
+        return car;
     }
     void c(Car car){
         this.carRepository.save(car);
