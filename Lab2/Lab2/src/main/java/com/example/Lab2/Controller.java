@@ -15,7 +15,7 @@ public class Controller {
     }
     @GetMapping(value = "/index")
     public String getIndexValue(Model model){
-        model.addAttribute("Car",service.wypisz());
+        model.addAttribute("Car",service.findAll());
         return "index";
     }
     @GetMapping(value = "/addCar")
@@ -29,7 +29,7 @@ public class Controller {
            model.addAttribute("errorMessage","error");
            return "addCar";
        }
-       service.addCarRepository(car);
+       service.saveCar(car);
         return "redirect:/index";
     }
     @GetMapping(value = "/editCar")
