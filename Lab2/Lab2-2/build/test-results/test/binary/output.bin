@@ -1,6 +1,0 @@
-Å13:26:06.909 [Test worker] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
-w13:26:06.913 [Test worker] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
-Ä13:26:06.922 [Test worker] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 8 ms
-Å13:26:07.418 [Test worker] INFO org.springframework.mock.web.MockServletContext -- Initializing Spring TestDispatcherServlet ''
-w13:26:07.419 [Test worker] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Initializing Servlet ''
-Ä13:26:07.419 [Test worker] INFO org.springframework.test.web.servlet.TestDispatcherServlet -- Completed initialization in 0 ms

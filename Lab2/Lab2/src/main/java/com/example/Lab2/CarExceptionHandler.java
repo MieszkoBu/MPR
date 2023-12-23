@@ -8,22 +8,26 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 @ControllerAdvice
 public class CarExceptionHandler extends ResponseEntityExceptionHandler {
+
     @ExceptionHandler(CarNotFoundException.class)
-    protected ResponseEntity<Object> handleNotFound(RuntimeException ex, WebRequest request){
+    protected ResponseEntity<Object> handleNotFound(CarNotFoundException ex, WebRequest request) {
         return ResponseEntity.notFound().build();
     }
-    @ExceptionHandler({CarAlreadyExistExeption.class})
-    protected ResponseEntity<Object> handleExist(RuntimeException ex, WebRequest request){
-        return ResponseEntity.badRequest().body(ex.getMessage());    }
-    public static class CarNotFoundException extends RuntimeException{
-         public CarNotFoundException(){
+
+    @ExceptionHandler(CarAlreadyExistExeption.class)
+    protected ResponseEntity<Object> handleExist(CarAlreadyExistExeption ex, WebRequest request) {
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
+
+    public static class CarNotFoundException extends RuntimeException {
+        public CarNotFoundException() {
             super("Samochód nie został znaleziony");
         }
     }
-    public static class CarAlreadyExistExeption extends RuntimeException{
-        public CarAlreadyExistExeption(){
+
+    public static class CarAlreadyExistExeption extends RuntimeException {
+        public CarAlreadyExistExeption() {
             super("Samochód istnieje");
         }
     }
-
 }

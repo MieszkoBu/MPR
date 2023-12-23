@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit car</title>
+    <link rel="stylesheet" href="/addCarStyle.css">
+</head>
+<body>
+<h1>Edycja samochodu</h1>
+<form th:object="${Car}" th:action="@{'/editCar/' + Car.id}" method="PUT">
+    <p th:text="'Marka: ' + ${Car.marka}"></p>
+    <p th:text="'Model: ' + ${Car.model}"></p>
+    <p th:text="'Rok produkcji: ' + ${Car.rok_produkcji}"></p>
+    <input th:field="*{id}" type="hidden" th:value="${Car?.id}">
+    <div>
+        <label>Marka</label>
+        <input th:field="*{marka}" type="text" name="marka" th:value="${Car?.marka}" required>
+    </div>
+    <div>
+        <label>Model</label>
+        <input th:field="*{model}" type="text" name="model" th:value="${Car?.model}" required>
+    </div>
+    <div>
+        <label>Rok produkcji</label>
+        <input th:field="*{rok_produkcji}" type="number" name="rok_produkcji" th:value="${Car?.rok_produkcji}" required>
+    </div>
+    <button type="submit">Save Changes</button>
+</form>
+</body>
+</html>

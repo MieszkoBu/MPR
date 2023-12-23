@@ -41,12 +41,12 @@ public class MyRestService{
     public void addCarRepository(Car car){
         this.carRepository.save(car);
     }
-    public List<Car> wypisz(){
+    public List<Car> cars(){
         List<Car> car = new ArrayList<>();
         car.addAll(carRepository.findAll());
         return car;
     }
-    void c(Car car){
+    void save(Car car){
         this.carRepository.save(car);
     }
     void usun(long id){

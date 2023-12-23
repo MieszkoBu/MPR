@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/addCarStyle.css">
 </head>
 <body>
-<p>Add Car</p>
+<h1>Dodaj samochód</h1>
 <form action="#" th:object="${Car}" th:action="@{/addCar}" method="POST">
     <div>
         <label>Marka</label>
@@ -19,7 +20,7 @@
         <label>Rok produkcji</label>
         <input th:field="*{rok_produkcji}" type="number" name="rok_produkcji" required>
     </div>
-    <button type="submit">Save</button>
+    <button type="submit">Zapisz</button>
 </form>
 </body>
 </html>

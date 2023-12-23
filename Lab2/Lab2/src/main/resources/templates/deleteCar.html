@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Car</title>
+    <link rel="stylesheet" href="/addCarStyle.css">
+</head>
+<body>
+<h1>Usuń samochód</h1>
+<form th:object="${Car}" th:action="@{'/deleteCar/' + Car.id}" method="DELETE">
+    <input type="hidden" th:field="*{id}" th:value="${Car.id}">
+    <p>Czy na pewno chcesz usunąć samochód o ID: <span th:text="${Car.id}"></span>?</p>
+    <p th:text="'ID: ' + ${Car.id}"></p>
+    <p th:text="'Marka: ' + ${Car.marka}"></p>
+    <p th:text="'Model: ' + ${Car.model}"></p>
+    <p th:text="'Rok produkcji: ' + ${Car.rok_produkcji}"></p>
+    <button type="submit">Usuń samochód</button>
+</form>
+</body>
+</html>

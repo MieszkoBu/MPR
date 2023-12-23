@@ -1,6 +1,8 @@
 package com.example.Lab2;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,7 +22,7 @@ public class MyRestController {
 
     @GetMapping("/cars")
     public List<Car> cars(){
-        return myRestService.wypisz();
+        return myRestService.cars();
     }
     @GetMapping("/findbyMarka/{marka}")
     public Optional<Car> getCarByMarka(@PathVariable("marka") String marka){
@@ -34,10 +36,20 @@ public class MyRestController {
     public void addCar(@RequestBody Car car){
         this.myRestService.addCarRepository(car);
     }
-    @PutMapping("/car")
-    public void putCar(@RequestBody Car car){
-           myRestService.c(car);
-           System.out.println("Dodano samochód");
+    @PutMapping("/car/edit/{id}")
+    public ResponseEntity<String> editCar(@PathVariable("id") long id, @RequestBody Car updatedCar) {
+        Optional<Car> existingCar = myRestService.findByID(id);
+        if (existingCar.isPresent()) {
+            Car carToUpdate = existingCar.get();
+            carToUpdate.setMarka(updatedCar.getMarka());
+            carToUpdate.setModel(updatedCar.getModel());
+            carToUpdate.setRok_produkcji(updatedCar.getRok_produkcji());
+
+            myRestService.save(carToUpdate);
+            return ResponseEntity.ok("Edytowano samochód o ID: " + id);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Samochód o ID: " + id + " nie istnieje");
+        }
     }
     @DeleteMapping("/ucar/{id}")
     public void deletecar(@PathVariable("id") int id){
