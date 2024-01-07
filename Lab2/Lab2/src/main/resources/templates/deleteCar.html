@@ -7,7 +7,8 @@
 </head>
 <body>
 <h1>Usuń samochód</h1>
-<form th:object="${Car}" th:action="@{'/deleteCar/' + Car.id}" method="DELETE">
+<form th:object="${Car}" th:action="@{'/deleteCar/' + ${Car.id}}" method="POST">
+    <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" th:field="*{id}" th:value="${Car.id}">
     <p>Czy na pewno chcesz usunąć samochód o ID: <span th:text="${Car.id}"></span>?</p>
     <p th:text="'ID: ' + ${Car.id}"></p>

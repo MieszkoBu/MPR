@@ -39,7 +39,7 @@ public class CarControllerTest {
         Car car = new Car("a", "v", 2009);
         Mockito.when(service.findByID(1L)).thenReturn(Optional.of(car));
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/findbyId/1")) // Dodano ukośnik na początku adresu
+        mockMvc.perform(MockMvcRequestBuilders.get("/findbyId/1"))
                 .andExpect(jsonPath("$.marka").value("a"))
                 .andExpect(jsonPath("$.model").value("v"))
                 .andExpect(jsonPath("$.rok_produkcji").value(2009))
@@ -48,8 +48,7 @@ public class CarControllerTest {
     @Test
     public void check400IsReturnedWhenCarIsAlreadyThere() throws Exception {
         Mockito.doThrow(new CarExceptionHandler.CarAlreadyExistExeption())
-                .when(service).addCarRepository(any());
-
+                .when(service).save(any());
         mockMvc.perform(post("/Car/add")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"marka\": \"BMW\", \"model\": \"A\", \"rok_produkcji\": 2009}")

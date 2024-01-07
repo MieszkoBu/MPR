@@ -51,7 +51,7 @@ public class ThymeleafController {
         }
     }
 
-    @PutMapping(value = "/editCar/{id}")
+    @RequestMapping(value = "/editCar/{id}", method = RequestMethod.POST, params = "_method=PUT")
     public String editCar(@PathVariable("id") long id, Car car, Model model) {
         try {
             if (car.getRok_produkcji() < 0) {
@@ -77,7 +77,7 @@ public class ThymeleafController {
             return "error";
         }
     }
-    @DeleteMapping("/deleteCar/{id}")
+    @RequestMapping(value = "/deleteCar/{id}", method = RequestMethod.POST, params = "_method=DELETE")
     public String deleteCar(@PathVariable("id") long id, Model model) {
         try {
             service.deleteCar(id);

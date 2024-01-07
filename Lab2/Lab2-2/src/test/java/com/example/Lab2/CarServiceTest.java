@@ -3,7 +3,6 @@ package com.example.Lab2;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -28,36 +27,31 @@ public class CarServiceTest {
         openMocks.close();
     }
     @Test
-    public void find(){
+    public void findCarByMarka() {
         String marka = "Toyota";
-        Car car = new Car(marka,"g",2003);
+        Car car = new Car(marka, "g", 2003);
         Mockito.when(repository.findByMarka(marka)).thenReturn(car);
         Optional<Car> result = CarService.getCarRepository(marka);
-        assertEquals(car,result);
+        assertEquals(car, result.orElse(null));
     }
+
     @Test
-    public void save(){
+    public void saveCar() {
         String marka = "Audi";
         String model = "A";
         int rok_produkcji = 2001;
-        Car car = new Car(marka,model,rok_produkcji);
-        ArgumentCaptor<Car> captor = ArgumentCaptor.forClass(Car.class);
-        Mockito.when(repository.save(captor.capture())).thenReturn(car);
-
-        CarService.addCarRepository(car);
-        Mockito.verify(CarService,Mockito.times(1)).addCarRepository(car);
-        Mockito.verify(repository,Mockito.times(5)).save(Mockito.any());
-        Car carFromSaveCall = captor.getValue();
-        assertEquals(car,carFromSaveCall);
+        Car car = new Car(marka, model, rok_produkcji);
+         CarService.save(car);
+        Mockito.verify(repository, Mockito.times(6)).save(Mockito.any());
     }
     @Test
     public void CarAddThrowsExceptionWhenCarIsNotPresent() {
         Car car = new Car("a", "v", 2009);
         car.setId(6);
-        Mockito.when(repository.findById(6)).thenReturn(null);
+        Mockito.when(repository.findById(6L)).thenReturn(Optional.empty());
 
         assertThrows(CarExceptionHandler.CarNotFoundException.class, () -> {
-            CarService.addCarRepository(car);
+            CarService.edit(car);
         });
     }
 
@@ -65,9 +59,10 @@ public class CarServiceTest {
     public void CarAddThrowsExceptionWhenCarIsPresent() {
         Car car = new Car("BMW", "A", 2001);
         car.setId(2);
-        Mockito.when(repository.findById(2)).thenReturn(car);
+        Mockito.when(repository.findById(2L)).thenReturn(Optional.of(car));
+
         assertThrows(CarExceptionHandler.CarAlreadyExistExeption.class, () -> {
-            CarService.addCarRepository(car);
+            CarService.save(car);
         });
     }
 }

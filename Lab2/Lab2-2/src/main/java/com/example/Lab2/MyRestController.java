@@ -34,7 +34,7 @@ public class MyRestController {
         }
     @PostMapping("/Car/add")
     public void addCar(@RequestBody Car car){
-        this.myRestService.addCarRepository(car);
+        this.myRestService.save(car);
     }
     @PutMapping("/car/edit/{id}")
     public ResponseEntity<String> editCar(@PathVariable("id") long id, @RequestBody Car updatedCar) {
@@ -45,7 +45,7 @@ public class MyRestController {
             carToUpdate.setModel(updatedCar.getModel());
             carToUpdate.setRok_produkcji(updatedCar.getRok_produkcji());
 
-            myRestService.save(carToUpdate);
+            myRestService.edit(carToUpdate);
             return ResponseEntity.ok("Edytowano samochód o ID: " + id);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Samochód o ID: " + id + " nie istnieje");
@@ -55,9 +55,4 @@ public class MyRestController {
     public void deletecar(@PathVariable("id") int id){
         myRestService.usun(id);
     }
-    @GetMapping("/car/{rok_produkcji}")
-    public List<Car> filterByModel(@PathVariable("rok_produkcji") int rok_produkcji){
-            return myRestService.filterByRok_produkcji(rok_produkcji);
-    }
-
 }

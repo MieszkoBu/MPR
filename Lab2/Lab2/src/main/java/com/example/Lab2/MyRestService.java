@@ -1,7 +1,4 @@
 package com.example.Lab2;
-
-import ch.qos.logback.core.rolling.helper.MonoTypedConverter;
-import org.springframework.boot.autoconfigure.web.reactive.WebFluxAutoConfiguration;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -9,9 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
-
-import javax.management.monitor.MonitorNotification;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,7 +47,6 @@ public class MyRestService{
                     .body(car)
                     .retrieve()
                     .toBodilessEntity();
-
     }
     public void editCar(long id, Car updatedCar) {
         try {

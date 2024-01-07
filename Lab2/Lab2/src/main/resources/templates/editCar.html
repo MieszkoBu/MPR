@@ -7,7 +7,8 @@
 </head>
 <body>
 <h1>Edycja samochodu</h1>
-<form th:object="${Car}" th:action="@{'/editCar/' + Car.id}" method="PUT">
+<form th:object="${Car}" th:action="@{/editCar/{id}(id=${Car.id})}" method="POST">
+    <input type="hidden" name="_method" value="PUT">
     <p th:text="'Marka: ' + ${Car.marka}"></p>
     <p th:text="'Model: ' + ${Car.model}"></p>
     <p th:text="'Rok produkcji: ' + ${Car.rok_produkcji}"></p>

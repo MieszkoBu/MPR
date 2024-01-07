@@ -8,12 +8,7 @@ import java.util.Optional;
 
 @Service
 public class MyRestService{
-    public List<Car> cars = new ArrayList<>();
     private CarRepository carRepository;
-    Car c1 = new Car("Bmw","v",2009);
-    Car c2 = new Car("Audi","A3",2004);
-    Car c3 = new Car("Toyota","Yaris",2009);
-
 
     public MyRestService(CarRepository carRepository){
         this.carRepository = carRepository;
@@ -22,13 +17,7 @@ public class MyRestService{
         this.carRepository.save(new Car("c","s",2004));
         this.carRepository.save(new Car("dua","d",2009));
         this.carRepository.save(new Car("dua","df",2008));
-
-        this.cars.add(c1);
-        this.cars.add(c2);
-        this.cars.add(c3);
-
     }
-
     public Optional<Car> getCarRepository(String marka) {
         Optional<Car> CarRepo = Optional.ofNullable(this.carRepository.findByMarka(marka));
         if(CarRepo.isPresent()){
@@ -38,19 +27,27 @@ public class MyRestService{
             throw new CarExceptionHandler.CarNotFoundException();
         }
     }
-    public void addCarRepository(Car car){
-        this.carRepository.save(car);
-    }
     public List<Car> cars(){
         List<Car> car = new ArrayList<>();
         car.addAll(carRepository.findAll());
         return car;
     }
-    void save(Car car){
-        this.carRepository.save(car);
+    public void save(Car car){
+        Optional<Car> existingCar = carRepository.findById(car.getId());
+        if (existingCar.isPresent()) {
+            throw new CarExceptionHandler.CarAlreadyExistExeption();
+        }
+        carRepository.save(car);
+    }
+    public void edit(Car car){
+        Optional<Car> notExistingCar = carRepository.findById(car.getId());
+        if(notExistingCar.isEmpty()){
+            throw new CarExceptionHandler.CarNotFoundException();
+        }
+        carRepository.save(car);
     }
     void usun(long id){
-        Optional<Car> CarRepo = Optional.ofNullable(this.carRepository.findById(id));
+        Optional<Car> CarRepo = this.carRepository.findById(id);
         if(CarRepo.isPresent()){
             this.carRepository.deleteById(id);
         }else{
@@ -59,7 +56,7 @@ public class MyRestService{
         }
     }
     public Optional<Car> findByID(long id){
-        Optional<Car> CarRepo = Optional.ofNullable(this.carRepository.findById(id));
+        Optional<Car> CarRepo = this.carRepository.findById(id);
         if(CarRepo.isPresent()){
             return CarRepo;
         }else{
@@ -67,15 +64,4 @@ public class MyRestService{
             throw new CarExceptionHandler.CarNotFoundException();
         }
     }
-    public List<Car> filterByRok_produkcji(int rok_produkcji){
-        List<Car> C = new ArrayList<>();
-        for (Car c: cars) {
-            if(c.getRok_produkcji()==rok_produkcji){
-                C.add(c);
-            }
-        }
-        return C;
-    }
-
-
 }
