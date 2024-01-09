@@ -1,4 +1,5 @@
 package com.example.Lab2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,8 +14,9 @@ import java.util.Optional;
 public class MyRestService{
     public static final String API_URL = "http://localhost:8082";
     RestClient restClient;
-    public MyRestService(){
-        restClient = RestClient.builder().build();
+    @Autowired
+    public MyRestService(RestClient restClient){
+        this.restClient = restClient;
     }
     public Iterable<Car> findAll(){
         List<Car> cars = restClient

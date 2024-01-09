@@ -32,19 +32,19 @@ public class MyRestService{
         car.addAll(carRepository.findAll());
         return car;
     }
-    public void save(Car car){
+    public Car save(Car car){
         Optional<Car> existingCar = carRepository.findById(car.getId());
         if (existingCar.isPresent()) {
             throw new CarExceptionHandler.CarAlreadyExistExeption();
         }
-        carRepository.save(car);
+        return carRepository.save(car);
     }
-    public void edit(Car car){
+    public Car edit(Car car){
         Optional<Car> notExistingCar = carRepository.findById(car.getId());
         if(notExistingCar.isEmpty()){
             throw new CarExceptionHandler.CarNotFoundException();
         }
-        carRepository.save(car);
+        return carRepository.save(car);
     }
     void usun(long id){
         Optional<Car> CarRepo = this.carRepository.findById(id);

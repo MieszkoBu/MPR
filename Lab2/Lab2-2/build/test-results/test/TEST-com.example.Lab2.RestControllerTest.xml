@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.Lab2.RestControllerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-01-09T12:41:49" hostname="GDA410-05" time="4.42">
+  <properties/>
+  <testcase name="testPost()" classname="com.example.Lab2.RestControllerTest" time="4.42"/>
+  <system-out><![CDATA[13:41:46.126 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.example.Lab2.RestControllerTest]: RestControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+13:41:46.436 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.example.Lab2.Lab2Application for test class com.example.Lab2.RestControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.0)
+
+2024-01-09T13:41:47.657+01:00  INFO 1112 --- [    Test worker] com.example.Lab2.RestControllerTest      : Starting RestControllerTest using Java 17.0.8 with PID 1112 (started by s27074 in Z:\GIT\MPR\Lab2\Lab2-2)
+2024-01-09T13:41:47.659+01:00  INFO 1112 --- [    Test worker] com.example.Lab2.RestControllerTest      : No active profile set, falling back to 1 default profile: "default"
+2024-01-09T13:41:49.041+01:00  INFO 1112 --- [    Test worker] com.example.Lab2.RestControllerTest      : Started RestControllerTest in 2.346 seconds (process running for 4.286)
+{
+    "id": 7,
+    "marka": "BMW",
+    "model": "C",
+    "rok_produkcji": 2009
+}
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

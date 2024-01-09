@@ -33,8 +33,8 @@ public class MyRestController {
             return this.myRestService.findByID(id);
         }
     @PostMapping("/Car/add")
-    public void addCar(@RequestBody Car car){
-        this.myRestService.save(car);
+    public Car addCar(@RequestBody Car car){
+        return this.myRestService.save(car);
     }
     @PutMapping("/car/edit/{id}")
     public ResponseEntity<String> editCar(@PathVariable("id") long id, @RequestBody Car updatedCar) {
